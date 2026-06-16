@@ -21,6 +21,15 @@
         <jjwt.version>0.12.5</jjwt.version>
     </properties>
 
+    <modules>
+        <module>auth</module>
+        <module>common</module>
+        <module>gateway</module>
+        <module>order</module>
+        <module>product</module>
+        <module>user</module>
+    </modules>
+
     <!-- 依赖管理，注意这里是 dependencyManagement，子模块不会自动引入 -->
     <dependencyManagement>
         <dependencies>
@@ -37,6 +46,14 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2022.0.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -62,9 +79,5 @@
         </dependencies>
     </dependencyManagement>
 
-    <!-- 声明子模块，每新增一个子模块，这里都会自动生成 -->
-    <modules>
-        <module>common</module>
-    </modules>
 
 </project>
