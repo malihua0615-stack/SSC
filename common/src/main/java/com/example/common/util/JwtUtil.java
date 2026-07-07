@@ -34,7 +34,7 @@ public class JwtUtil {
     public static String getToken(UserEntity userEntity) {
         return Jwts.builder()
                 .id(UUID.randomUUID().toString())
-                .subject(userEntity.getId())
+                .subject(String.valueOf(userEntity.getId()))
                 .claim("username",userEntity.getUsername())
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis()+ EXPIRE))

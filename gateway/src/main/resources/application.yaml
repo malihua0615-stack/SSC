@@ -16,6 +16,14 @@ spring:
         uri: lb://auth
         predicates:
           - Path=/auth/**
+      - id: order
+        uri: lb://order
+        predicates:
+          - Path=/order/**
+      - id: product
+        uri: lb://product
+        predicates:
+          - Path=/product/**
 
 # 添加 actuator 配置
 management:

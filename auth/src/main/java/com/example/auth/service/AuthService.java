@@ -20,7 +20,7 @@ public class AuthService {
     }
 
     public String login(String username, String password){
-        UserEntity userEntity = UserEntity.getUser(username);
+        UserEntity userEntity = new UserEntity();
         if (userEntity != null){
             if (userEntity.getPassword().equals(password)){
                 String token = JwtUtil.getToken(userEntity);
