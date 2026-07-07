@@ -1,12 +1,13 @@
-package com.example.common.auth;
+package com.example.common.web;
 
+import com.example.common.auth.UserContext;
 import com.example.common.entity.UserEntity;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Component;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-@Component
+@Slf4j
 public class AuthInterceptor implements HandlerInterceptor {
 
 
@@ -20,6 +21,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         userEntity.setUsername(username);
         userEntity.setRole(role);
         UserContext.setUserEntity(userEntity);
+        log.debug("成功设置到threadLocal 里面了。。。。ID:{}",userId);
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
 

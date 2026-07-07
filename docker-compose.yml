@@ -1,0 +1,76 @@
+version: "3.8"
+
+services:
+  # Nacos 服务
+  nacos:
+    image: nacos/nacos-server:v3.1.1
+    container_name: nacos
+    environment:
+      - MODE=standalone
+      - NACOS_AUTH_ENABLE=false
+      - NACOS_AUTH_TOKEN=SecretKey012345678901234567890123456789012345678901234567890123456789
+      - NACOS_AUTH_IDENTITY_KEY=nacos
+      - NACOS_AUTH_IDENTITY_VALUE=nacos
+      - NACOS_APPLICATION_PORT=8848
+    ports:
+      - "8848:8848"
+      - "8080:8080"
+      - "9848:9848"
+    networks:
+      - ssc-net
+
+  # MySQL 8.0 服务
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: Root@123
+      MYSQL_DATABASE: micro_mall
+      MYSQL_USER: mall_user
+      MYSQL_PASSWORD: Mall@123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - ssc-net
+
+  # Redis 服务
+  redis:
+    image: redis:latest
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - ssc-net
+
+  # RabbitMQ 服务
+  rabbitmq:
+    image: rabbitmq:3.13.0-management
+    container_name: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: rabbit
+      RABBITMQ_DEFAULT_PASS: rabbit123
+    ports:
+      - "5672:5672"   # AMQP
+      - "15672:15672" # 管理界面
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - ssc-net
+
+# 数据卷
+volumes:
+  mysql_data:
+  redis_data:
+  rabbitmq_data:
+
+# 网络
+networks:
+  ssc-net:
+    driver: bridge

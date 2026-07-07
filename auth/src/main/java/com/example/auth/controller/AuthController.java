@@ -1,6 +1,7 @@
 package com.example.auth.controller;
 
 import com.example.auth.service.AuthService;
+import com.example.common.auth.UserContext;
 import com.example.common.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,5 +24,12 @@ public class AuthController {
         String login = authService.login(userEntity.getUsername(), userEntity.getPassword());
         log.debug("controller:login:return:{}",login);
         return login;
+    }
+
+
+    @GetMapping("/test")
+    public String test(){
+        UserEntity userEntity = UserContext.getUserEntity();
+        return "test OK get user Id:"+userEntity.getId();
     }
 }
