@@ -26,7 +26,7 @@ public class JwtUtil {
     private static SecretKey getSecretKey() {
         byte[] keyBytes = SECRET.getBytes(StandardCharsets.UTF_8);
         // 如果密钥长度不足 32 字节，Keys.hmacShaKeyFor 会自动补足
-        // 建议配置文件里直接把密钥写够 32 位以上
+        // 建议配置文件里直接把密钥写够 32 位 以上
 
         return Keys.hmacShaKeyFor(keyBytes);
     }
