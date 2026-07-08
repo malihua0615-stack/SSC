@@ -10,20 +10,24 @@ spring:
       discovery:
         server-addr: localhost:8848
 
-  gateway:
-    routes:
-      - id: auth
-        uri: lb://auth
-        predicates:
-          - Path=/auth/**
-      - id: order
-        uri: lb://order
-        predicates:
-          - Path=/order/**
-      - id: product
-        uri: lb://product
-        predicates:
-          - Path=/product/**
+    gateway:
+      routes:
+        - id: auth
+          uri: lb://auth
+          predicates:
+            - Path=/auth/**
+        - id: order
+          uri: lb://order
+          predicates:
+            - Path=/order/**
+        - id: product
+          uri: lb://product
+          predicates:
+            - Path=/product/**
+        - id: user
+          uri: lb://user
+          predicates:
+            - Path=/user/**
 
 # 添加 actuator 配置
 management:

@@ -1,7 +1,11 @@
 package com.example.auth.service;
 
 import com.example.common.entity.UserEntity;
+import com.example.common.exception.BusinessException;
+import com.example.common.exception.Result;
+import com.example.common.openfeign.UserFeignClient;
 import com.example.common.util.JwtUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -10,17 +14,22 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AuthService {
 
     private final RedisTemplate<String,String> redisTemplate;
     private final String USER_TOKEN_PREFIX = "user:token:";
+    private final UserFeignClient userFeignClient;
 
-    public AuthService(RedisTemplate<String, String> redisTemplate){
-        this.redisTemplate = redisTemplate;
-    }
 
     public String login(String username, String password){
-        UserEntity userEntity = new UserEntity();
+        com.example.common.dto.UserDto userDto = new com.example.common.dto.UserDto();
+        userDto.setUsername(username);
+        Result<UserEntity> userByUsername = userFeignClient.getUserByUsername(userDto);
+        if(userByUsername.isSuccess()){
+            throw new BusinessException(userByUsername.getMessage());
+        }
+        UserEntity userEntity = userByUsername.getData();
         if (userEntity != null){
             if (userEntity.getPassword().equals(password)){
                 String token = JwtUtil.getToken(userEntity);

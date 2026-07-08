@@ -16,26 +16,26 @@ public class GatewayApplication {
         SpringApplication.run(GatewayApplication.class, args);
     }
 
-    @Bean
-    public CommandLineRunner printRoutes(RouteLocator routeLocator) {
-        return args -> {
-            System.out.println("=== 打印所有路由 ===");
-            routeLocator.getRoutes().subscribe(route -> {
-                System.out.println("Route ID: " + route.getId());
-                System.out.println("  URI: " + route.getUri());
-                System.out.println("  Predicate: " + route.getPredicate());
-            });
-        };
-    }
+//    @Bean
+//    public CommandLineRunner printRoutes(RouteLocator routeLocator) {
+//        return args -> {
+//            System.out.println("=== 打印所有路由 ===");
+//            routeLocator.getRoutes().subscribe(route -> {
+//                System.out.println("Route ID: " + route.getId());
+//                System.out.println("  URI: " + route.getUri());
+//                System.out.println("  Predicate: " + route.getPredicate());
+//            });
+//        };
+//    }
 
-    @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
-        System.out.println("=== RouteLocator 被加载了！===");
-
-        return builder.routes()
-                .route("auth", r -> r
-                        .path("/auth/**")
-                        .uri("lb://auth"))
-                .build();
-    }
+//    @Bean
+//    public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
+//        System.out.println("=== RouteLocator 被加载了！===");
+//
+//        return builder.routes()
+//                .route("auth", r -> r
+//                        .path("/auth/**")
+//                        .uri("lb://auth"))
+//                .build();
+//    }
 }
