@@ -1,8 +1,10 @@
 package com.example.user.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.example.common.entity.UserAddressEntity;
 import com.example.common.entity.UserEntity;
 import com.example.common.exception.BusinessException;
+import com.example.user.mapper.UserAddressMapper;
 import com.example.user.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,14 @@ public class UserService {
 
 
     private final UserMapper userMapper;
+    private final UserAddressMapper userAddressMapper;
+
+    public UserAddressEntity getUserAddress(Long userId) {
+        LambdaQueryWrapper<UserAddressEntity> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserAddressEntity::getUserId, userId)
+                .eq(UserAddressEntity::getIsDefault,"0");
+        return userAddressMapper.selectOne(queryWrapper);
+    }
 
     public UserEntity getUserByName(String userName){
         log.info("getUserByName userName:{}",userName);

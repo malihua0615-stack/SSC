@@ -16,6 +16,9 @@ services:
       - "8848:8848"
       - "8080:8080"
       - "9848:9848"
+    volumes:
+      - nacos_data:/home/nacos/data   # ✅ 引用 nacos_data
+      - nacos_logs:/home/nacos/logs   # ✅ 引用 nacos_logs
     networks:
       - ssc-net
 
@@ -69,6 +72,8 @@ volumes:
   mysql_data:
   redis_data:
   rabbitmq_data:
+  nacos_data: # ✅ 添加 Nacos 数据卷
+  nacos_logs:    # ✅ 添加 Nacos 日志卷（可选）
 
 # 网络
 networks:

@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: product
+  cloud:
+    nacos:
+      server-addr: localhost:8848 # Nacos服务器地址
+      config:
+        file-extension: yaml # 配置文件格式
+        # 使用shared-configs导入共享的Redis配置
+        shared-configs:
+          - data-id: shared-redis-config.yaml # 对应Nacos中创建的Data ID
+            group: DEFAULT_GROUP # 对应Nacos中的分组
+            refresh: true # 是否支持动态刷新
