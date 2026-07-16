@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(name = "user", path = "/product")
+@FeignClient(name = "product", path = "/product")
 public interface ProductFeignClient {
 
     @GetMapping("/getProductById/{id}")

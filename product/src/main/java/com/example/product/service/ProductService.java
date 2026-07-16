@@ -15,7 +15,7 @@ public class ProductService {
 
     private final ProductMapper productMapper;
 
-    private final RedisTemplate<String,Object> redisTemplate;
+//    private final RedisTemplate<String,Object> redisTemplate;
 
     public ProductEntity getProductById(Long id) {
         if (id == null) {

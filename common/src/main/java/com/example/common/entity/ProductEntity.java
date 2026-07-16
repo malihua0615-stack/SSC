@@ -1,5 +1,6 @@
 package com.example.common.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
+@TableName("t_product")
 public class ProductEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,8 +70,8 @@ public class ProductEntity implements Serializable {
     // ========== 关联字段（非数据库字段） ==========
 
     /** 分类名称（关联查询） */
-    private String categoryName;
-
-    /** SKU 列表（关联查询） */
-    private List<ProductSkuEntity> skuList;
+//    private String categoryName;
+//
+//    /** SKU 列表（关联查询） */
+//    private List<ProductSkuEntity> skuList;
 }

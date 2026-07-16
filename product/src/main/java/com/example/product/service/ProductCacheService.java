@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class ProductCacheService {
 
     private final ProductMapper productMapper;
@@ -21,6 +21,7 @@ public class ProductCacheService {
     private final RedisTemplate redisTemplate;
 
     private final String PRODUCT_CACHE = "PRODUCT_CACHE";
+
     @PostConstruct
     public void initProductCache() {
         loadProductCache();

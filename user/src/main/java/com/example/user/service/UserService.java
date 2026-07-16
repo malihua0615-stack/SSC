@@ -7,23 +7,29 @@ import com.example.common.exception.BusinessException;
 import com.example.user.mapper.UserAddressMapper;
 import com.example.user.mapper.UserMapper;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 @Service
 @Slf4j
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserService {
 
 
     private final UserMapper userMapper;
     private final UserAddressMapper userAddressMapper;
 
+    private final RedisTemplate<String,String> redisTemplate;
+
+
     public UserAddressEntity getUserAddress(Long userId) {
         LambdaQueryWrapper<UserAddressEntity> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserAddressEntity::getUserId, userId)
                 .eq(UserAddressEntity::getIsDefault,"0");
+        redisTemplate.opsForValue().set("test","111");
         return userAddressMapper.selectOne(queryWrapper);
     }
 
