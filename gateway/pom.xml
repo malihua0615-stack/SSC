@@ -26,6 +26,8 @@
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
 
+
+
         <!-- Nacos配置管理依赖 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
