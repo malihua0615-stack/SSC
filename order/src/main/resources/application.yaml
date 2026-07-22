@@ -8,6 +8,13 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: rabbit
+    password: rabbit123
+
+
   datasource:
     # MySQL 8.x 驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,6 +29,8 @@ spring:
       connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
-
+logging:
+  level:
+    org.springframework.amqp.rabbit.core.RabbitAdmin: TRACE
 
 

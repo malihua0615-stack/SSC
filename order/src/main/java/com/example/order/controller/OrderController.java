@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
+
 @RestController
 @RequestMapping("/order")
 @Slf4j
@@ -19,8 +21,10 @@ public class OrderController {
 
     private final OrderService orderService;
 
-    @PostMapping("createOrder")
+    @PostMapping("/createOrder")
     public Result createOrder(@RequestBody CreateOrderDto createOrderDto) {
+        createOrderDto.setPayPrice(new BigDecimal(50));
+        createOrderDto.setTotalPrice(new BigDecimal(500));
         orderService.createOrder(createOrderDto);
         return Result.success("OK");
     }

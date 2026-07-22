@@ -1,11 +1,13 @@
 package com.example.common.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
+@TableName("t_user_address")
 public class UserAddressEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
