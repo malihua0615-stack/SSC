@@ -1,11 +1,13 @@
 package com.example.common.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
+@TableName("t_order_item")
 public class OrderItemEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

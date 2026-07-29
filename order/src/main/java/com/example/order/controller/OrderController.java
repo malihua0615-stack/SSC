@@ -6,7 +6,6 @@ import com.example.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,10 +21,11 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping("/createOrder")
-    public Result createOrder(@RequestBody CreateOrderDto createOrderDto) {
-        createOrderDto.setPayPrice(new BigDecimal(50));
-        createOrderDto.setTotalPrice(new BigDecimal(500));
+    public Result createOrder() {
+        CreateOrderDto createOrderDto = orderService.autoCreateOrder();
         orderService.createOrder(createOrderDto);
         return Result.success("OK");
     }
+
+
 }

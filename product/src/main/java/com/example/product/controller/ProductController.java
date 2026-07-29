@@ -6,6 +6,8 @@ import com.example.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/product")
 @RequiredArgsConstructor
@@ -16,5 +18,11 @@ public class ProductController {
     public Result<ProductEntity> getProductById(@PathVariable String id) {
         ProductEntity productById = productService.getProductById(Long.parseLong(id));
         return Result.success(productById);
+    }
+
+    @GetMapping("/getAllProducts")
+    public Result<List<ProductEntity>> getAllProducts() {
+        List<ProductEntity> allProducts = productService.getAllProducts();
+        return Result.success(allProducts);
     }
 }

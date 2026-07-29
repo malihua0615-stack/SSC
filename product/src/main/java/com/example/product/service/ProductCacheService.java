@@ -18,9 +18,8 @@ public class ProductCacheService {
 
     private final ProductMapper productMapper;
 
-    private final RedisTemplate redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
 
-    private final String PRODUCT_CACHE = "PRODUCT_CACHE";
 
     @PostConstruct
     public void initProductCache() {
@@ -33,7 +32,11 @@ public class ProductCacheService {
         List<ProductEntity> productEntities = productMapper.selectList(new QueryWrapper<>());
 
         for (ProductEntity productEntity : productEntities) {
+            String PRODUCT_CACHE = "PRODUCT_CACHE";
             redisTemplate.opsForHash().put(PRODUCT_CACHE, productEntity.getId().toString(), productEntity);
+            //缓存商品库存
+            String STOCK_CACHE = "STOCK_CACHE:";
+            redisTemplate.opsForValue().set(STOCK_CACHE + productEntity.getId().toString(), productEntity.getStock());
         }
         log.info("成功加载商品信息，总量：{}",productEntities.size());
 

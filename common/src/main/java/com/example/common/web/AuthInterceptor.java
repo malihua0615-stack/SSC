@@ -14,10 +14,8 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String userId = request.getHeader("SSC-User-Id");
-        String username = request.getHeader("SSC-User-Name");
         UserEntity userEntity = new UserEntity();
         userEntity.setId(Long.parseLong(userId));
-        userEntity.setUsername(username);
         UserContext.setUserEntity(userEntity);
         log.debug("成功设置到threadLocal 里面了。。。。ID:{}",userId);
         return HandlerInterceptor.super.preHandle(request, response, handler);
