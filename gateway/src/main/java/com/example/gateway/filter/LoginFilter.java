@@ -2,6 +2,7 @@ package com.example.gateway.filter;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -27,22 +28,34 @@ public class LoginFilter implements GlobalFilter, Ordered {
             "/auth/login",
     };
 
+    @Value("${auth.check-enabled:true}")
+    private boolean checkEnabled;
+
+    @Value("${auth.mock-user-id:1}")
+    private String mockUserId;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         String path = exchange.getRequest().getURI().getPath();
-        String token = getToken(exchange);
         if (Arrays.asList(PATH).contains(path)){
             return chain.filter(exchange);
         }
-        if (token == null ) {
-            log.warn("token is null");
-            return unauthorizedResponse(exchange,"先登录一下！");
+        String id;
+        if (!checkEnabled) {
+            id = mockUserId;
+            log.debug("token 校验已关闭，使用 mockUserId={}, path={}", id, path);
+        } else {
+            String token = getToken(exchange);
+            if (token == null) {
+                log.warn("token is null");
+                return unauthorizedResponse(exchange, "先登录一下！");
+            }
+            id = JwtUtil.getId(token);
+            log.debug("Token 校验通过。: userId={}, path={}", id, path);
         }
-        String id = JwtUtil.getId(token);
         ServerHttpRequest mutatedRequest = exchange.getRequest().mutate()
                 .header("SSC-User-Id", id)
                 .build();
-        log.debug("Token 校验通过。: userId={}, path={}", id, path);
         return chain.filter(exchange.mutate().request(mutatedRequest).build());
     }
 

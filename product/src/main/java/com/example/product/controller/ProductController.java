@@ -25,4 +25,10 @@ public class ProductController {
         List<ProductEntity> allProducts = productService.getAllProducts();
         return Result.success(allProducts);
     }
+
+    @PostMapping("/updateProduct")
+    public Result<Integer> updateProduct(@RequestBody ProductEntity productEntity) {
+        int result = productService.updateProduct(productEntity);
+        return Result.success(result);
+    }
 }

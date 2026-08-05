@@ -6,6 +6,7 @@ import com.example.common.exception.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -17,4 +18,7 @@ public interface ProductFeignClient {
 
     @GetMapping("/getAllProducts")
     Result<List<ProductEntity>> getAllProducts();
+
+    @GetMapping("/updateProduct")
+    Result<Integer> updateProduct(@RequestBody ProductEntity productEntityList);
 }

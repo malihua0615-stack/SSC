@@ -42,11 +42,13 @@ management:
 jwt:
   secret: "your_very_long_and_secure_secret_key_string_here_which_is_at_least_32_bytes"
   expire: 600000
+
+# 鉴权开关（压测时关闭 token 校验）
+auth:
+  check-enabled: false
+  mock-user-id: 1
+
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
-    org.springframework.web: DEBUG
-
-# 测试配置
-test:
-  config: loaded
+    org.springframework.cloud.gateway: INFO
+    org.springframework.web: INFO

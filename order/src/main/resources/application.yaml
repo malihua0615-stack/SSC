@@ -13,6 +13,13 @@ spring:
     port: 5672
     username: rabbit
     password: rabbit123
+    simple:
+      acknowledge-mode: manual #手动ack
+      retry:
+        enabled: true #开启重试
+        initial-interval: 1000 #初始间隔
+        max-attempts: 3 #最大重试次数
+        multiplier: 2 #间隔倍数 每次倍 2 4 8
   datasource:
     # MySQL 8.x 驱动
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,8 +29,8 @@ spring:
 
     # 连接池配置（使用 HikariCP）
     hikari:
-      maximum-pool-size: 20
-      minimum-idle: 5
+      maximum-pool-size: 25
+      minimum-idle: 10
       connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
@@ -31,9 +38,9 @@ feign:
   client:
     config:
       default:
-        loggerLevel: full
+        loggerLevel: basic
 logging:
   level:
-    org.springframework.amqp.rabbit.core.RabbitAdmin: TRACE
-    com.example.common.openfeign: DEBUG
+    org.springframework.amqp.rabbit.core.RabbitAdmin: INFO
+    com.example.common.openfeign: INFO
 

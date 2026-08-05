@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.List;
+
 @FeignClient(name = "user", path = "/user")
 public interface UserFeignClient {
 
@@ -18,4 +20,8 @@ public interface UserFeignClient {
 
     @PostMapping("/getUserAddress")
      Result<UserAddressEntity> getUserAddress(@RequestBody UserDto userDto);
+
+
+    @PostMapping("/getUser")
+    Result<List<UserEntity>> getAllUser(@RequestBody UserDto userDto);
 }

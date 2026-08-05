@@ -27,9 +27,9 @@ public class UserService {
 
     public UserAddressEntity getUserAddress(Long userId) {
         LambdaQueryWrapper<UserAddressEntity> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(UserAddressEntity::getUserId, userId);
-//                .eq(UserAddressEntity::getIsDefault,"0");
-        redisTemplate.opsForValue().set("test","111");
+        queryWrapper.eq(UserAddressEntity::getUserId, userId)
+                .eq(UserAddressEntity::getIsDefault,"1");
+//        redisTemplate.opsForValue().set("test","111");
         return userAddressMapper.selectOne(queryWrapper);
     }
 

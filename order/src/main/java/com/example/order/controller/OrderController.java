@@ -5,9 +5,7 @@ import com.example.common.exception.Result;
 import com.example.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 
@@ -24,6 +22,12 @@ public class OrderController {
     public Result createOrder() {
         CreateOrderDto createOrderDto = orderService.autoCreateOrder();
         orderService.createOrder(createOrderDto);
+        return Result.success("OK");
+    }
+
+    @PostMapping("/createOrderByCrud/{userId}")
+    public Result createOrderByCrud(@PathVariable Long userId) throws InterruptedException {
+        orderService.createOrder(userId);
         return Result.success("OK");
     }
 

@@ -30,7 +30,13 @@ public class ProductService {
         List<ProductEntity> productEntities = productMapper.selectList(null);
         log.debug("获取所有商品信息: {}", productEntities);
         return  productEntities;
+    }
 
+    public int updateProduct(ProductEntity productEntity) {
+        if (productEntity == null) {
+            throw new BusinessException("商品信息不能为空！！");
+        }
+        return productMapper.updateById(productEntity);
     }
 
 
