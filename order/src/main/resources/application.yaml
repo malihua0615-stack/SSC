@@ -34,11 +34,16 @@ spring:
       connection-timeout: 30000
       idle-timeout: 600000
       max-lifetime: 1800000
+
 feign:
   client:
     config:
       default:
         loggerLevel: basic
+  httpclient:
+    enabled: true                   # 关键：开启 Apache HttpClient 作为底层
+    max-connections: 200            # 连接池总上限
+    max-connections-per-route: 100  # 每个路由的最大连接数
 logging:
   level:
     org.springframework.amqp.rabbit.core.RabbitAdmin: INFO

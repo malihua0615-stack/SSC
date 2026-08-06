@@ -61,6 +61,13 @@ public class OrderService {
 
     @Transactional(rollbackFor = Exception.class)
     public void createOrder(Long userId) throws InterruptedException {
+        /**
+         * 100线程 avg=185.19ms min=26.56ms  med=162.33ms max=670.5ms  p(90)=326.29ms p(95)=357.62ms qps=162.672021/s
+         * 250线程 avg=230.32ms min=26.71ms  med=183.3ms  max=1.89s p(90)=422.07ms p(95)=698.02ms qps=327.940644/s
+         * 500线程 avg=457.71ms min=25.42ms  med=292.47ms max=2.94s p(90)=959.35ms p(95)=1.04s qps=389.013261/s
+         * 700线程 avg=677.62ms min=24.89ms  med=484.29ms max=3.86s p(90)=1.43s p(95)=2.44s 387.256008/s
+         * 800线程 avg=1.7s min=17.88ms  med=1.57s max=5.12s p(90)=3.24s p(95)=3.46s  qps=214.149464/s
+         */
         UserDto userDto = new UserDto();
         userDto.setId(userId);
         Result<UserAddressEntity> userAddressEntityResult = userFeignClient.getUserAddress(userDto);
